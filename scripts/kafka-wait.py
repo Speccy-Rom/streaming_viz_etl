@@ -22,7 +22,7 @@ def main():
 
         stdout, stderr = process.communicate()
         if "metadata for all topics" not in str(stdout).lower():
-            print(str(stderr))
+            print(stderr)
             print(f"Sleeping for {RETRY_TIME_SECONDS} seconds")
             time.sleep(RETRY_TIME_SECONDS)
         else:
@@ -32,7 +32,7 @@ def main():
     if not can_connect:
         exit(1)
 
-    print(str(stdout))
+    print(stdout)
     print("Kafka is up!")
 
 

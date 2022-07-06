@@ -30,7 +30,7 @@ class Sales(Document):
 def fetch_counts_per_product_id() -> pd.DataFrame:
     pipeline = [{"$sortByCount": "$item_description"}]
     count_by_product = Sales.objects().aggregate(pipeline)
-    rows = [_ for _ in count_by_product]
+    rows = list(count_by_product)
     if not rows:
         raise NoDataException()
     return pd.DataFrame(rows).set_index("_id")
@@ -47,7 +47,7 @@ def fetch_total_sales() -> str:
     ]
 
     total_sales = Sales.objects().aggregate(pipeline)
-    rows = [_ for _ in total_sales]
+    rows = list(total_sales)
     if not rows:
         raise NoDataException()
 
